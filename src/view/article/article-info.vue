@@ -25,7 +25,13 @@
             </el-form-item>
             <el-form-item label="封面" prop="cover">
               <el-input v-model="form.cover" size="medium" placeholder="请输入封面地址"></el-input>
-              <el-upload action="" :multiple="false" :auto-upload="false" :on-change="uploadImage">
+              <el-upload
+                :show-file-list="false"
+                action=""
+                :multiple="false"
+                :auto-upload="false"
+                :on-change="uploadImage"
+              >
                 <el-button size="small" type="primary">点击上传</el-button>
               </el-upload>
             </el-form-item>
@@ -317,7 +323,7 @@ export default {
 
     async getAuthors() {
       try {
-        const { items } = await author.getAuthors()
+        const items = await author.getAuthors()
         this.authors = items.map(item => ({
           id: item.id,
           name: item.nickname,

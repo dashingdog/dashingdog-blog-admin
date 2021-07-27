@@ -2,7 +2,7 @@ import { get } from '@/lin/plugin/axios'
 
 class Author {
   getAuthors() {
-    return get('/cms/admin/users')
+    return get('/v1/blog/author/authors')
   }
 }
 

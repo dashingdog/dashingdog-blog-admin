@@ -277,7 +277,7 @@ export default {
 
     async getAuthors() {
       try {
-        const { items } = await author.getAuthors()
+        const items = await author.getAuthors()
         const authors = items.map(item => ({
           id: item.id,
           name: item.nickname,

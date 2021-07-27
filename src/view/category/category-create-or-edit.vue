@@ -1,11 +1,14 @@
 <template>
   <el-dialog :title="`${form.id ? '编辑' : '新建'}分类`" :visible.sync="dialogFormVisible">
-    <el-form :model="form" ref="form" label-width="120px">
+    <el-form :model="form" ref="form" label-width="120px" :rules="rules">
       <el-form-item label="分类名称" prop="name">
         <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="分类封面地址" prop="cover">
         <el-input placeholder="请输入分类封面地址" v-model="form.cover"></el-input>
+        <el-upload action="" :show-file-list="false" :multiple="false" :auto-upload="false" :on-change="uploadImage">
+          <el-button size="small" type="primary">点击上传</el-button>
+        </el-upload>
       </el-form-item>
       <el-form-item label="分类描述" prop="description">
         <el-input placeholder="请输入分类描述" v-model="form.description"></el-input>
@@ -28,6 +31,10 @@ export default {
         cover: '',
         description: '',
       },
+      rules: {
+        name: [{ required: true, message: '请填写分类名称', trigger: 'blur' }],
+        description: [{ required: true, message: '请填写分类描述', trigger: 'blur' }],
+      },
       dialogFormVisible: false,
     }
   },
@@ -45,6 +52,20 @@ export default {
     },
   },
   methods: {
+    async uploadImage(file) {
+      try {
+        const res = await this.$axios({
+          method: 'post',
+          url: '/cms/file/tencentUpload',
+          data: {
+            file: file.raw,
+          },
+        })
+        this.form.cover = res[0].path
+      } catch (error) {
+        console.log(error)
+      }
+    },
     edit(form) {
       this.form = Object.assign({}, form)
       this.dialogFormVisible = true
@@ -52,8 +73,13 @@ export default {
     create() {
       this.dialogFormVisible = true
     },
-    confirm() {
-      this.$emit('confirm', this.form)
+    async confirm() {
+      try {
+        await this.$refs.form.validate()
+        this.$emit('confirm', this.form)
+      } catch (error) {
+        console.log(error)
+      }
     },
     hidden() {
       this.dialogFormVisible = false
