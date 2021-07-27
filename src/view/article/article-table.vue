@@ -31,7 +31,7 @@
       <el-table-column prop="created_date" label="发布时间" sortable width="170"></el-table-column>
       <el-table-column prop="authors" label="作者">
         <template slot-scope="scope">
-          <span class="author-item" v-for="author in scope.row.authors" :key="author.id">{{ author.name }}</span>
+          <span class="author-item" v-for="author in scope.row.authors" :key="author.id">{{ author.nickName }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="public" label="是否公开" :formatter="row => publicMap[row.public]"></el-table-column>

@@ -280,7 +280,7 @@ export default {
         const { items } = await author.getAuthors()
         const authors = items.map(item => ({
           id: item.id,
-          name: item.username,
+          name: item.nickname,
         }))
         authors.unshift({
           id: 0,

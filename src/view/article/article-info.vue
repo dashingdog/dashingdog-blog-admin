@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item label="封面" prop="cover">
               <el-input v-model="form.cover" size="medium" placeholder="请输入封面地址"></el-input>
-              <el-upload :action="uploadUrl">
+              <el-upload action="" :multiple="false" :auto-upload="false" :on-change="uploadImage">
                 <el-button size="small" type="primary">点击上传</el-button>
               </el-upload>
             </el-form-item>
@@ -44,7 +44,7 @@
                 <el-option
                   v-for="author in authors"
                   :key="author.id"
-                  :label="author.username"
+                  :label="author.name"
                   :value="author.id"
                 ></el-option>
               </el-select>
@@ -154,7 +154,7 @@ export default {
   data() {
     return {
       loading: false,
-      uploadUrl: `${Config.baseUrl}/v1/file`,
+      uploadUrl: `${Config.baseURL}cms/file/tencentUpload`,
       form: {
         title: '',
         authors: [],
@@ -188,6 +188,20 @@ export default {
   },
 
   methods: {
+    async uploadImage(file) {
+      try {
+        const res = await this.$axios({
+          method: 'post',
+          url: '/cms/file/tencentUpload',
+          data: {
+            file: file.raw,
+          },
+        })
+        this.form.cover = res[0].path
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async submitForm(formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
@@ -304,7 +318,10 @@ export default {
     async getAuthors() {
       try {
         const { items } = await author.getAuthors()
-        this.authors = items
+        this.authors = items.map(item => ({
+          id: item.id,
+          name: item.nickname,
+        }))
       } catch (e) {
         // eslint-disable-next-line no-console
         console.log(e)
@@ -320,6 +337,8 @@ export default {
   },
 
   created() {
+    console.log(Config)
+    console.log(this.uploadUrl)
     if (this.infoType === 'add') {
       // 添加文章
       this.getCategories()
