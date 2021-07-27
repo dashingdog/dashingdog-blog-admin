@@ -1,10 +1,21 @@
 language: node_js
 node_js:
-  - "10"
-addons:
-  chrome: stable
+  - node
 sudo: required
-before_script:
-  - "sudo chown root /opt/google/chrome/chrome-sandbox"
-  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
-script: npm run test:unit
+install:
+  - npm install
+script: true
+before_install:
+  - openssl aes-256-cbc -K $encrypted_d11afb7726ff_key -iv $encrypted_d11afb7726ff_iv
+    -in id_rsa.enc -out id_rsa -d
+  - mv id_rsa ~/.ssh
+  - chmod 600 ~/.ssh/id_rsa
+branches:
+  only:
+    - master
+after_success:
+  - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'cd ./web/dashingdog-blog-admin
+    && git pull && bash ./script/deploy.sh'
+addons:
+  ssh_known_hosts:
+    - '$DEPLOY_HOST'
