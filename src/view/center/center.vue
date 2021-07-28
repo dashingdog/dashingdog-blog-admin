@@ -103,6 +103,7 @@ import Croppa from 'vue-croppa'
 import User from '@/lin/model/user'
 import 'vue-croppa/dist/vue-croppa.css'
 import defaultAvatar from '@/assets/image/user/user.png'
+import Common from '@/model/common'
 
 Vue.use(Croppa)
 
@@ -243,12 +244,8 @@ export default {
         type: 'image/jpeg',
       })
 
-      return this.$axios({
-        method: 'post',
-        url: '/cms/file/tencentUpload',
-        data: {
-          file,
-        },
+      return Common.localUpload({
+        file,
       }).then(res => {
         // 清空输入框
         this.clearFileInput(this.$refs.avatarInput)
