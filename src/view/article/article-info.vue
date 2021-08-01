@@ -96,17 +96,6 @@
                 <el-radio :label="2">精选</el-radio>
               </el-radio-group>
             </el-form-item>
-            <!-- <el-form-item
-              label="内容"
-              prop="content"
-            >
-              <el-input
-                type="textarea"
-                v-model="form.content"
-                :autosize="{ minRows: 10, maxRows: 14 }"
-                placeholder="请输入文章内容"
-              ></el-input>
-            </el-form-item> -->
             <el-form-item label="文章内容" prop="content">
               <mavon-editor @imgAdd="$imgAdd" :autofocus="false" ref="md" v-model="form.content" />
             </el-form-item>
@@ -126,8 +115,7 @@ import category from '@/model/category'
 import tag from '@/model/tag'
 import author from '@/model/author'
 import article from '@/model/article'
-import Config from '@/config/index'
-// import common from '@/model/common'
+import common from '@/model/common'
 
 export default {
   props: {
@@ -160,7 +148,6 @@ export default {
   data() {
     return {
       loading: false,
-      uploadUrl: `${Config.baseURL}cms/file/tencentUpload`,
       form: {
         title: '',
         authors: [],
@@ -196,13 +183,7 @@ export default {
   methods: {
     async uploadImage(file) {
       try {
-        const res = await this.$axios({
-          method: 'post',
-          url: '/cms/file/tencentUpload',
-          data: {
-            file: file.raw,
-          },
-        })
+        const res = await common.tencentUpload({ file: file.raw })
         this.form.cover = res[0].path
       } catch (error) {
         console.log(error)
@@ -282,19 +263,14 @@ export default {
       // const file = new File([$file], `avatar.jpg`, {
       //   type: 'image/jpeg',
       // })
-      const result = await this.$axios({
-        method: 'post',
-        url: '/v1/file/cors',
-        data: {
-          file: $file,
-        },
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const result = await common.tencentUpload({
+        file: $file,
       })
-      console.log(result)
+      const [image] = result
       // const url = "http://cdn.dashingdog.cn/blog/dashingdog-avatar.jpg"
       // $vm.$img2Url(pos, url);
       //
-      // this.$refs.md.$imglst2Url([[pos, url]])
+      this.$refs.md.$imglst2Url([[pos, image.url]])
     },
 
     resetForm(formName) {
@@ -343,8 +319,6 @@ export default {
   },
 
   created() {
-    console.log(Config)
-    console.log(this.uploadUrl)
     if (this.infoType === 'add') {
       // 添加文章
       this.getCategories()
