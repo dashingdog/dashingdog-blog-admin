@@ -27,4 +27,4 @@ deploy:
       - ci-test
 addons:
   ssh_known_hosts:
-    - '$DEPLOY_HOST'
+    - $DEPLOY_HOST
