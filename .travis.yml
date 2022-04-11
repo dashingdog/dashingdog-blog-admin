@@ -2,20 +2,22 @@ language: node_js
 node_js:
   - node
 sudo: required
-install:
-  - skip
-script: true
 before_install:
   - openssl aes-256-cbc -K $encrypted_d11afb7726ff_key -iv $encrypted_d11afb7726ff_iv
     -in id_rsa.enc -out id_rsa -d
   - mv id_rsa ~/.ssh
   - chmod 600 ~/.ssh/id_rsa
+install:
+  - npm insall
+script:
+  - npm run build
 branches:
   only:
     - master
+    - ci-test
 after_success:
-  - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no
-  - cd ./web/dashingdog-blog-admin
+  -ls
+  # - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'cd ./web/dashingdog-blog-admin'
   - bash ./script/deploy.sh
 
 addons:
