@@ -7,7 +7,7 @@ branches:
     - master
     - ci-test
 install:
-  trur
+  true
   # - npm install
 script:
   true
