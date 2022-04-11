@@ -1,25 +1,27 @@
 language: node_js
 node_js:
-  - node
+  - node14
 sudo: required
-before_install:
-  - openssl aes-256-cbc -K $encrypted_d11afb7726ff_key -iv $encrypted_d11afb7726ff_iv
-    -in id_rsa.enc -out id_rsa -d
-  - mv id_rsa ~/.ssh
-  - chmod 600 ~/.ssh/id_rsa
-install:
-  - npm install
-script:
-  - npm run build
 branches:
   only:
     - master
     - ci-test
-after_success:
-  - ls
-  # - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'cd ./web/dashingdog-blog-admin'
-  - bash ./script/deploy.sh
-
+install:
+  - npm install
+script:
+  - npm run build
+before_deploy:
+  - openssl aes-256-cbc -K $encrypted_d11afb7726ff_key -iv $encrypted_d11afb7726ff_iv
+    -in id_rsa.enc -out id_rsa -d
+  - mv id_rsa ~/.ssh
+  - chmod 600 ~/.ssh/id_rsa
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+  - rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist $DEPLOY_USER@$DEPLOY_HOST:tmp/$TRAVIS_BUILD_ID
+  - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no
+'rm -rf /tmp/old.build && mv web/dashingdog-blog-admin/dist /tmp/old.build && mv tmp/$TRAVIS_BUILD_ID web/dashingdog-blog-admin/dist'
 addons:
   ssh_known_hosts:
     - '$DEPLOY_HOST'
