@@ -13,9 +13,11 @@ before_install:
 branches:
   only:
     - master
-    - fork
 after_success:
-  - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no  'bash ./script/deploy.sh'
+  - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no
+  - cd ./web/dashingdog-blog-admin
+  - bash ./script/deploy.sh
+
 addons:
   ssh_known_hosts:
     - '$DEPLOY_HOST'
