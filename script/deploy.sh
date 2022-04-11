@@ -14,6 +14,6 @@ npm install
 
 npm run build
 
-echo 'success'
+echo 'build success'
 
 
