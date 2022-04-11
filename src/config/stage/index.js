@@ -6,7 +6,7 @@ import pluginsConfig from './plugin'
 // eslint-disable-next-line import/no-mutable-exports
 let homeRouter = [
   {
-    title: '林间有风',
+    title: '我的博客',
     type: 'view',
     name: Symbol('about'),
     route: '/about',
@@ -23,7 +23,6 @@ let homeRouter = [
     filePath: 'view/log/log.vue',
     inNav: true,
     icon: 'iconfont icon-rizhiguanli',
-    order: 2,
     permission: ['查询所有日志'],
   },
   {

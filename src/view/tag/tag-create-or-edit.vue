@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="`${form.id ? '编辑' : '添加'}标签`" v-model:visible="dialogFormVisible">
+  <el-dialog :title="`${form.id ? '编辑' : '添加'}标签`" v-model="dialogFormVisible">
     <el-form :model="form" ref="form" label-width="120px">
       <el-form-item label="标签名称" prop="name">
         <el-input placeholder="请输入标签名称" v-model="form.name"></el-input>

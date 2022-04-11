@@ -1,22 +1,29 @@
 <template>
   <div class="login">
-    <div class="team-name hidden-sm-and-down"><img src="@/assets/image/login/team-name.png" alt="logo" /></div>
     <div class="form-box" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)">
-      <div class="title"><h1 title="Lin">Lin CMS</h1></div>
+      <div class="title"><h1 title="Lin">Blog Admin</h1></div>
       <form class="login-form" autocomplete="off" @submit.prevent="throttleLogin()">
         <div class="form-item nickname">
           <span class="icon account-icon"></span>
-          <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名" />
+          <label for="username">
+            <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名" />
+          </label>
         </div>
         <div class="form-item password">
           <span class="icon secret-icon"></span>
-          <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
+          <label for="password">
+            <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
+          </label>
         </div>
         <div class="form-item password" v-if="captchaImage">
-          <img class="captcha" :src="captchaImage" />
-          <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
+          <img class="captcha" alt="" :src="captchaImage" />
+          <label for="captcha">
+            <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
+          </label>
         </div>
-        <button class="submit-btn" type="submit">登录</button>
+        <div class="submit-wrap">
+          <button class="submit-btn" type="submit">登录</button>
+        </div>
       </form>
     </div>
   </div>
@@ -115,15 +122,7 @@ export default {
   width: 100%;
   height: 100%;
   background-size: auto;
-  background: #1b2c5f url('../../assets/image/login/login-ba.png') no-repeat center center;
-
-  .team-name {
-    position: fixed;
-    left: 40px;
-    top: 50%;
-    width: 50px;
-    transform: translateY(-50%);
-  }
+  background: #1b2c5f url('../../assets/image/login/login-ba.jpg') no-repeat center center;
 
   .form-box {
     position: fixed;
@@ -131,18 +130,18 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 445px;
-
+    border-radius: 12px;
+    padding-bottom: 30px;
+    background: rgba(0, 0, 0, 0.5);
     .title {
-      height: 37px;
+      height: 80px;
       font-size: 30px;
-      line-height: 37px;
-      margin-bottom: 15%;
-
+      line-height: 80px;
+      margin-bottom: 6%;
       h1 {
-        padding-left: 74px;
         box-sizing: border-box;
-        text-align: left;
-        color: #8c98ae;
+        text-align: center;
+        color: #ffffff;
       }
     }
 
@@ -151,20 +150,22 @@ export default {
 
       .form-item {
         position: relative;
-        width: 100%;
         height: 40px;
         box-sizing: border-box;
         padding-bottom: 13px;
         margin-bottom: 34px;
-
+        margin: 0 40px 20px;
         input {
           width: 100%;
-          height: 100%;
+          height: 32px;
+          line-height: 32px;
           background: transparent;
           color: #c4c9d2;
           font-size: 14px;
-          padding-left: 74px;
+          padding: 20px;
           box-sizing: border-box;
+          border: 1px solid #d6d6d6;
+          border-radius: 6px;
         }
 
         .captcha {
@@ -174,33 +175,22 @@ export default {
           top: -22px;
         }
       }
-
-      .form-item.nickname {
-        background: url('../../assets/image/login/nickname.png') no-repeat;
-        background-size: 100% auto;
-        background-position: left bottom;
-      }
-
-      .form-item.password {
-        background: url('../../assets/image/login/password.png') no-repeat;
-        background-size: 100% auto;
-        background-position: left bottom;
-      }
-
-      .submit-btn {
+      .submit-wrap {
         width: 100%;
-        height: 70px;
-        color: #c4c9d2;
-        font-size: 16px;
-        text-align: left;
+        padding: 0 40px;
         box-sizing: border-box;
-        padding: 0 10px;
-        padding-left: 74px;
-        background: url('../../assets/image/login/login-btn.png') no-repeat;
-        background-size: 90% auto;
-        background-position: center bottom;
-        border: none;
-        cursor: pointer;
+        .submit-btn {
+          height: 50px;
+          line-height: 50px;
+          color: #ffffff;
+          font-size: 16px;
+          text-align: center;
+          border: none;
+          cursor: pointer;
+          border-radius: 8px;
+          width: 100%;
+          background: #1e88a8;
+        }
       }
     }
   }

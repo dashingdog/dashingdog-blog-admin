@@ -9,7 +9,7 @@ const articeRouter = {
   type: 'folder', // 类型: folder, tab, view
   icon: 'iconfont icon-tushuguanli',
   filePath: 'view/book/', // 文件路径
-  order: null,
+  order: 2,
   inNav: true,
   children: [
     {

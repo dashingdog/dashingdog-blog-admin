@@ -13,6 +13,7 @@ before_install:
 branches:
   only:
     - master
+    - fork
 after_success:
   - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'cd ./web/dashingdog-blog-admin
     && git pull && bash ./script/deploy.sh'

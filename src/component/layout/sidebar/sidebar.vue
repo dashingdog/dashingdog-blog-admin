@@ -1,32 +1,28 @@
 <template>
   <div class="app-sidebar">
-    <logo :elMenuCollapse="elMenuCollapse" />
-    <div style="margin-bottom:50px">
-      <search></search>
-      <el-menu
-        ref="meun"
-        class="el-menu-vertical-demo"
-        :default-active="defaultActive"
-        :collapse="elMenuCollapse"
-        background-color="#192A5E"
-        text-color="rgba(196,201,210,1)"
-        active-text-color="#1890ff"
-      >
-        <menu-tree v-for="item in sidebarList" :key="item.path" :item="item"></menu-tree>
-      </el-menu>
-    </div>
+    <search></search>
+    <el-menu
+      ref="meun"
+      class="el-menu-vertical-demo"
+      :default-active="defaultActive"
+      :collapse="elMenuCollapse"
+      background-color="#192A5E"
+      text-color="rgba(196,201,210,1)"
+      active-text-color="#1890ff"
+    >
+      <menu-tree v-for="item in sidebarList" :key="item.path" :item="item"></menu-tree>
+    </el-menu>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 
-import Logo from './logo'
 import Search from './search'
 import MenuTree from './menu-tree'
 
 export default {
-  components: { MenuTree, Logo, Search },
+  components: { MenuTree, Search },
   props: {
     isPhone: {
       type: Boolean,

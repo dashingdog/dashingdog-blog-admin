@@ -5,8 +5,8 @@ const categoryRouter = {
   type: 'folder', // 类型: folder, tab, view
   icon: 'iconfont icon-tushuguanli',
   filePath: 'view/book/', // 文件路径
-  order: null,
   inNav: true,
+  order: 3,
   children: [
     {
       title: '分类管理',
