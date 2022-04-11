@@ -16,7 +16,7 @@ branches:
     - master
     - ci-test
 after_success:
-  -ls
+  - ls
   # - ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'cd ./web/dashingdog-blog-admin'
   - bash ./script/deploy.sh
 
