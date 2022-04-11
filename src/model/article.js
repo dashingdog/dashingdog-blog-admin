@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Date: 2022-04-09 10:32:11
  */
 import { get, post, put, _delete } from '@/lin/plugin/axios'

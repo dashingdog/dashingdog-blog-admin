@@ -9,15 +9,17 @@
         </div>
       </div>
       <!-- 表格 -->
-      <lin-table
-        :tableColumn="tableColumn"
-        :tableData="tableData"
-        :operate="operate"
-        @handleEdit="handleEdit"
-        @handleDelete="handleDelete"
-        @row-click="rowClick"
-        v-loading="loading"
-      ></lin-table>
+      <el-table :data="tableData" v-loading="loading">
+        <el-table-column prop="name" label="分类名称" width="200" />
+        <el-table-column prop="cover" label="封面地址" />
+        <el-table-column prop="description" label="分类描述" />
+        <el-table-column fixed="right" label="操作" width="200">
+          <template #default="scope">
+            <el-button type="primary" size="small" @click="handleEdit(scope)">编辑</el-button>
+            <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </div>
     <CategoryCreateOrEdit @confirm="confirmCategory" ref="categoryForm" />
   </div>
@@ -25,12 +27,12 @@
 
 <script>
 import category from '@/model/category'
-import LinTable from '@/component/base/table/lin-table'
+// import LinTable from '@/component/base/table/lin-table'
 import CategoryCreateOrEdit from './category-create-or-edit.vue'
 
 export default {
   components: {
-    LinTable,
+    // LinTable,
     CategoryCreateOrEdit,
   },
   data() {
@@ -43,23 +45,14 @@ export default {
       tableData: [],
       operate: [],
       showEdit: false,
-      editBookID: 1,
       categoryForm: {},
       dialogFormVisible: false,
+      loading: false,
     }
   },
   async created() {
     this.loading = true
     await this.getCategories()
-    this.operate = [
-      { name: '编辑', func: 'handleEdit', type: 'primary' },
-      {
-        name: '删除',
-        func: 'handleDelete',
-        type: 'danger',
-        permission: '删除图书',
-      },
-    ]
     this.loading = false
   },
   methods: {

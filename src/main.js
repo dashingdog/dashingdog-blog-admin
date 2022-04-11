@@ -17,9 +17,13 @@ import LIcon from '@/component/base/icon/lin-icon'
 import StickyTop from '@/component/base/sticky-top/sticky-top'
 import SourceCode from '@/component/base/source-code/source-code'
 
+import mavonEditor from 'mavon-editor'
+
 import '@/assets/style/index.scss'
 import 'element-plus/dist/index.css'
 import '@/assets/style/realize/element-variable.scss'
+
+import 'mavon-editor/dist/css/index.css'
 
 const app = createApp(App)
 
@@ -40,6 +44,8 @@ app.component('source-code', SourceCode)
 app.config.globalProperties.$filters = filters
 
 app.directive('permission', permissionDirective)
+
+app.use(mavonEditor)
 
 app.mount('#app')
 

@@ -132,8 +132,8 @@ import category from '@/model/category'
 import tag from '@/model/tag'
 import author from '@/model/author'
 import article from '@/model/article'
-import ArticleTable from './article-table'
 import Utils from '@/util'
+import ArticleTable from './article-table'
 import ArticleInfo from './article-info'
 
 export default {
@@ -160,9 +160,21 @@ export default {
       categories: [],
       authors: [],
       tags: [],
-      publicList: [{ id: 0, name: '全部' }, { id: 1, name: '公开' }, { id: 2, name: '私密' }],
-      status: [{ id: 0, name: '全部' }, { id: 1, name: '已发布' }, { id: 2, name: '草稿' }],
-      star: [{ id: 0, name: '全部' }, { id: 1, name: '非精选' }, { id: 2, name: '精选' }],
+      publicList: [
+        { id: 0, name: '全部' },
+        { id: 1, name: '公开' },
+        { id: 2, name: '私密' },
+      ],
+      status: [
+        { id: 0, name: '全部' },
+        { id: 1, name: '已发布' },
+        { id: 2, name: '草稿' },
+      ],
+      star: [
+        { id: 0, name: '全部' },
+        { id: 1, name: '非精选' },
+        { id: 2, name: '精选' },
+      ],
       form: {},
     }
   },

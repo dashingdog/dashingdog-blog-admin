@@ -1,7 +1,6 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
 import categoryConfig from './category'
-import messageConfig from './message'
 import articeConfig from './article'
 import pluginsConfig from './plugin'
 // eslint-disable-next-line import/no-mutable-exports
@@ -48,7 +47,6 @@ let homeRouter = [
   categoryConfig,
   adminConfig,
   articeConfig,
-  messageConfig
 ]
 
 // 接入插件

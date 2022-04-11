@@ -8,16 +8,18 @@
           <el-button @click="showTagCreate">添加标签</el-button>
         </div>
       </div>
-      <!-- 表格 -->
-      <lin-table
-        :tableColumn="tableColumn"
-        :tableData="tableData"
-        :operate="operate"
-        @handleEdit="handleEdit"
-        @handleDelete="handleDelete"
-        @row-click="rowClick"
-        v-loading="loading"
-      ></lin-table>
+        <!-- 表格 -->
+      <el-table :data="tableData" style="width:100%"   v-loading="loading">
+        <el-table-column prop="name" label="标签名称"  />
+        <el-table-column fixed="right" label="操作" width="200">
+          <template #default="scope">
+            <el-button type="primary" size="small" @click="handleEdit(scope)"
+              >编辑</el-button
+            >
+            <el-button type="danger" size="small" @click="handleDelete(scope)">删除</el-button>
+          </template>
+      </el-table-column>
+    </el-table>
     </div>
     <TagCreateOrEdit @confirm="confirmTag" ref="tagForm" />
   </div>
@@ -25,37 +27,24 @@
 
 <script>
 import tag from '@/model/tag'
-import LinTable from '@/component/base/table/lin-table'
 import TagCreateOrEdit from './tag-create-or-edit.vue'
 
 export default {
   components: {
-    LinTable,
     TagCreateOrEdit,
   },
   data() {
     return {
-      tableColumn: [{ prop: 'name', label: '分类名称' }],
       tableData: [],
-      operate: [],
       showEdit: false,
-      editBookID: 1,
       tagForm: {},
+      loading: false,
       dialogFormVisible: false,
     }
   },
   async created() {
     this.loading = true
     await this.getTags()
-    this.operate = [
-      { name: '编辑', func: 'handleEdit', type: 'primary' },
-      {
-        name: '删除',
-        func: 'handleDelete',
-        type: 'danger',
-        permission: '删除图书',
-      },
-    ]
     this.loading = false
   },
   methods: {

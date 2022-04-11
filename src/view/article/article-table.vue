@@ -2,7 +2,7 @@
   <div class="article-table">
     <el-table :data="articleData" v-loading="loading">
       <el-table-column type="expand">
-        <template slot-scope="props">
+        <template v-slot="props">
           <el-form inline label-position="left" label-width="80px" class="demo-table-expand">
             <el-form-item label="分类">
               <span>{{ props.row.category.name }}</span>
@@ -30,14 +30,14 @@
       <el-table-column prop="title" label="标题"></el-table-column>
       <el-table-column prop="created_date" label="发布时间" sortable width="170"></el-table-column>
       <el-table-column prop="authors" label="作者">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <span class="author-item" v-for="author in scope.row.authors" :key="author.id">{{ author.nickName }}</span>
         </template>
       </el-table-column>
       <el-table-column prop="public" label="是否公开" :formatter="row => publicMap[row.public]"></el-table-column>
       <el-table-column prop="status" label="状态" :formatter="row => statusMap[row.status]"></el-table-column>
       <el-table-column prop="star" label="设为精选">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <i
             :class="['star el-icon-star-off', scope.row.star === 2 ? 'star-on' : '']"
             @click="setArticleStar(scope.row)"
@@ -45,7 +45,7 @@
         </template>
       </el-table-column>
       <el-table-column label="操作" fixed="right" width="250">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <el-button type="primary" size="mini" @click="editArticle(scope.row)">编辑</el-button>
           <el-button type="primary" size="mini" @click="setArticlePrivate(scope.row)">{{
             scope.row.public === 1 ? '私密' : '公开'
@@ -68,15 +68,15 @@
       ></el-pagination>
     </div>
     <!-- 评论弹窗 -->
-    <el-dialog append-to-body :visible.sync="dialogVisible" :before-close="handleClose">
+    <el-dialog append-to-body v-model:visible="dialogVisible" :before-close="handleClose">
       <comments v-if="dialogVisible" :id="currentId"></comments>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import Comments from './comments'
 import article from '@/model/article'
+import Comments from './comments'
 
 const publicMap = {
   1: '公开',

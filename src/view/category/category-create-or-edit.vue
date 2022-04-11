@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="`${form.id ? '编辑' : '新建'}分类`" :visible.sync="dialogFormVisible">
+  <el-dialog :title="`${form.id ? '编辑' : '新建'}分类`" v-model="dialogFormVisible">
     <el-form :model="form" ref="form" label-width="120px" :rules="rules">
       <el-form-item label="分类名称" prop="name">
         <el-input placeholder="请输入分类名称" v-model="form.name"></el-input>
@@ -67,7 +67,7 @@ export default {
       }
     },
     edit(form) {
-      this.form = Object.assign({}, form)
+      this.form = { ...form }
       this.dialogFormVisible = true
     },
     create() {

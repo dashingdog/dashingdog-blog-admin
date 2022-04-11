@@ -8,7 +8,7 @@ Utils.timestampToTime = (timestamp, formats = 'Y-m-d H:i:s') => {
 
   const zero = value => {
     if (value < 10) {
-      return `0${ value}`
+      return `0${value}`
     }
     return value
   }
@@ -24,14 +24,17 @@ Utils.timestampToTime = (timestamp, formats = 'Y-m-d H:i:s') => {
   const minute = zero(myDate.getMinutes())
   const second = zero(myDate.getSeconds())
 
-  return formats.replace(/Y|m|d|H|i|s/ig, matches => ({
-    Y: year,
-    m: month,
-    d: day,
-    H: hour,
-    i: minute,
-    s: second
-  })[matches])
+  return formats.replace(
+    /Y|m|d|H|i|s/gi,
+    matches => ({
+      Y: year,
+      m: month,
+      d: day,
+      H: hour,
+      i: minute,
+      s: second,
+    }[matches]),
+  )
 }
 
 export default Utils

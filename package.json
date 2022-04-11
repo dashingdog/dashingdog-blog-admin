@@ -25,6 +25,7 @@
     "good-storage": "^1.1.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.14",
+    "mavon-editor": "^3.0.0-beta",
     "mitt": "^2.1.0",
     "moment": "^2.24.0",
     "photoswipe": "^4.1.2",
