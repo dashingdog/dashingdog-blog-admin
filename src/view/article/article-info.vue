@@ -97,7 +97,7 @@
               </el-radio-group>
             </el-form-item>
             <el-form-item label="文章内容" prop="content">
-              <mavon-editor @imgAdd="$imgAdd"  ref="md" v-model="form.content" />
+              <mavon-editor @imgAdd="$imgAdd" ref="md" v-model="form.content" />
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click.stop="submitForm('form')">保 存</el-button>

@@ -2,7 +2,7 @@
   <div class="container" v-loading="loading">
     <div class="group">
       <div class="label">
-        <label>{{ title }}</label>
+        <label >{{ title }}</label>
       </div>
       <div class="details">
         <div class="permissions-box" v-for="(permission, moduleName) in allPermissions" :key="moduleName">
