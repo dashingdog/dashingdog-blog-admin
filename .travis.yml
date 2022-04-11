@@ -8,7 +8,7 @@ before_install:
   - mv id_rsa ~/.ssh
   - chmod 600 ~/.ssh/id_rsa
 install:
-  - npm insall
+  - npm install
 script:
   - npm run build
 branches:
