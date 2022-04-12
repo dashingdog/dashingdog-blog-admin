@@ -17,7 +17,6 @@ before_deploy:
     -in id_rsa.enc -out id_rsa -d
   - mv id_rsa ~/.ssh
   - chmod 600 ~/.ssh/id_rsa
-  - ssh-add ~/.ssh/id_rsa
 deploy:
   provider: script
   skip_cleanup: true
