@@ -5,8 +5,8 @@
 #rsync -av --delete-after   -e "ssh  -o PubkeyAuthentication=yes   -o stricthostkeychecking=no" $TRAVIS_BUILD_DIR/tests $DEPLOY_USER@$DEPLOY_HOST:tmp/
 echo 'TRAVIS_BUILD_ID:' $TRAVIS_BUILD_ID
 ls $TRAVIS_BUILD_DIR/dist
-tar -zcvf ${TRAVIS_BUILD_ID}.tar.gz ./dist
-scp -o stricthostkeychecking=no -r ${TRAVIS_BUILD_ID}.tar.gz $DEPLOY_USER@$DEPLOY_HOST:tmp
+tar -zcf ${TRAVIS_BUILD_ID}.tar.gz ./dist
+scp -o stricthostkeychecking=no -v ${TRAVIS_BUILD_ID}.tar.gz $DEPLOY_USER@$DEPLOY_HOST:tmp
 echo 'scp upload success'
 ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no 'tar -zxvf ${TRAVIS_BUILD_ID}.tar.gz && rm-rf ${TRAVIS_BUILD_ID}.tar.gz  \
  rm -rf tmp/old.build && mv web/dashingdog-blog-admin/dist tmp/old.build \
