@@ -22,7 +22,6 @@ deploy:
   on:
     branch:
       - master
-      - ci-test
 addons:
   ssh_known_hosts:
     - $DEPLOY_HOST
