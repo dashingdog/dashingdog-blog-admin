@@ -8,7 +8,7 @@ ls $TRAVIS_BUILD_DIR/dist
 tar -zcf dist.tar.gz ./dist
 scp -o stricthostkeychecking=no -v dist.tar.gz $DEPLOY_USER@$DEPLOY_HOST:tmp
 echo 'scp upload success'
-ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no ' tar -zxvf tmp/dist.tar.gz \
+ssh "$DEPLOY_USER"@"$DEPLOY_HOST" -o StrictHostKeyChecking=no ' tar -zxvf tmp/dist.tar.gz -C tmp \
   && rm -rf tmp/dist.tar.gz tmp/old.build && mv www/dist tmp/old.build && mv tmp/dist www/dist'
 
 echo 'deploy success'
